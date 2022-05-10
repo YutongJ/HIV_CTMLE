@@ -188,11 +188,11 @@ site_summary <- function(pval,hline=0.05, dir=dir_save, total_num=856,antibody){
 # directory to save result
 # local path
 # load dat_AA.rda
-dir0 = paste0("H:/Research/RF_TMLE/Codes/20210511_HIV_Visuals/data/")
+dir0 = paste0("C:/Users/yjin85/OneDrive - Emory University/Research/RF_CTMLE/Codes/20220419_HIV_Visuals/data/")
 # load pval_cv.rda
-dir1 = paste0("H:/Research/RF_TMLE/Results/20210511_HIV_Visuals/")
+dir1 = paste0("C:/Users/yjin85/OneDrive - Emory University/Research/RF_CTMLE/Results/20220419_HIV_Visuals/")
 # final plots and tables
-dir_save = paste0("H:/Research/RF_TMLE/Results/20210511_HIV_Visuals/")
+dir_save = paste0("C:/Users/yjin85/OneDrive - Emory University/Research/RF_CTMLE/Results/20220419_HIV_Visuals/")
 
 # --------------
 #   Parameters
@@ -207,7 +207,7 @@ s_max <- c(328, 229, 303, 313, 294)
 plots_data <- vector(mode = "list", length = length(antibody))
 for (anti in seq_along(antibody)){
   # AA positions
-  pos <- 19:(18+s_max[anti])
+  pos <- 3:(2+s_max[anti])
   # load p-value
   # load(paste0(dir1,"pval_full.rda"))
   load(paste0(dir1,antibody[anti],"/pval_cv.rda"))
@@ -235,6 +235,7 @@ for (anti in seq_along(antibody)){
                antibody = antibody[anti])
 }
 
+save(plots_data, file = paste0(dir_save, "plots_data.rda"))
 
 
 
@@ -287,10 +288,11 @@ manhattan_ind <- function(plot_dat,
   plot(y=-log10(rep(1,total_num)), x=seq(total_num),
        xlim = c(0,total_num+100),ylim=c(0,log_p_max+1),
        xlab = "Env Residue (HXB2-referenced)", 
-       ylab = expression(paste("-log"[10],"(p-value)",sep='')),
+       ylab = "",
        # main = "AA designations", 
        col="white", pch=19, cex.lab=1.5,
        bty="n", xaxt="n", yaxt="n")
+  title(ylab=expression(paste("-log"[10],"(p-value)",sep='')), line=1.5, cex.lab=1.5)
   mtext(side=1, at=450, line=5.5, adj=0.5, cex=1.3,
         paste0("(",LETTERS[num],") ",Antibody[num]))
   # add x-axis
@@ -390,6 +392,24 @@ dev.off()
 
 
 
+# --------
+# individual plots for proposal presentation
+# --------
+pdf(file = paste0(dir1, "AA_designations_all23.pdf"),width = 15,height = 9)
+# mar: c(bottom, left, top, right)
+par(oma = c(2,1,1,0.1), mfrow = c(2,3), mar = c(6, 3, 1, 0.1))
+for (i in seq_along(antibody)){
+  manhattan_ind(plot_dat=plots_data[[i]],num=i)
+}
+# par(fig = c(0, 1, 0, 1), oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0), new = TRUE)
+plot(0, 0, type = 'l', bty = 'n', xaxt = 'n', yaxt = 'n',xlab="",ylab="")
+legend("center", xpd = TRUE, horiz = FALSE, cex = 1.7, bty = 'n',
+       x.intersp=1, y.intersp=1.2, #line space between each notation
+       legend = c("signal peptide", "gp120","gp41"), 
+       col=c("firebrick2", "dodgerblue2", "olivedrab3"), 
+       pch=c(17,18,20))
+# xpd = TRUE makes the legend plot to the figure
+dev.off()
 
 
 

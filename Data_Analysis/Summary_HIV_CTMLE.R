@@ -19,24 +19,24 @@ ls()
 
 
 # Antibodies
-antibody <- c("vrc26", "1074", "PGT121", "PGT145")
-s_max <- c(229, 303, 313, 294)
+antibody <- c("vrc01", "vrc26", "1074", "PGT121", "PGT145")
+s_max <- c(328, 229, 303, 313, 294)
 
 
 # directory to save result
 # local path
-dir  = paste0("H:/Research/RF_TMLE/Results/20210511_HIV_Visuals/",antibody[anti],"/AA/")
-dir4 = paste0("H:/Research/RF_TMLE/Results/20210511_HIV_Visuals/",antibody[anti],"/")
+dir  = paste0("H:/Research/RF_TMLE/Results/20220419_HIV_Visuals/",antibody[anti],"/AA/")
+dir4 = paste0("H:/Research/RF_TMLE/Results/20220419_HIV_Visuals/",antibody[anti],"/")
 
 # cluster path
 dir  = paste0(path_save, antibody[anti],"/AA/")
 dir4 = paste0(path_save, antibody[anti],"/")
 
 # AA positions
-pos <- 19:20
+pos <- 3:20
 
 # cluster
-pos <- 19:(18+s_max[anti])
+pos <- 3:(2+s_max[anti])
 
 
 # input:

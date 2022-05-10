@@ -16,20 +16,22 @@ ls()
 
 # splt = 17
 # splt_max=17
-# anti = 2
+# anti = 1
 # group_num = 20
 
 # --------------
 #   Parameters
 # --------------
 # Antibodies
-antibody <- c("vrc26", "1074", "PGT121", "PGT145")
-s_max <- c(229, 303, 313, 294)
+antibody <- c("vrc01", "vrc26", "1074", "PGT121", "PGT145")
+s_max <- c(328, 229, 303, 313, 294)
+
+# floor((s_max-17)/20)+2
+# [1] 17 12 16 16 15
+
 
 # # numbers for each group
 # group_num <- 20
-
-
 
 
 
@@ -45,18 +47,19 @@ library(plyr)
 
 
 
+# --------------
+#   Path
+# --------------
 # rm(list=ls())
-
-# dir <- "H:/Research/RF_TMLE/Codes/20210511_HIV_Visuals/"
-# dir_fun <- "H:/Research/RF_TMLE/Codes/20210511_HIV_Visuals/R_func/"
-# dir_save <- paste0("H:/Research/RF_TMLE/Results/20210511_HIV_Visuals/", antibody[anti],"/AA/")
+dir <- "C:/Users/yjin85/OneDrive - Emory University/Research/RF_CTMLE/Codes/20220419_HIV_Visuals/"
+dir_fun <- "C:/Users/yjin85/OneDrive - Emory University/Research/RF_CTMLE/Codes/20220419_HIV_Visuals/R_func/"
+dir_save <- paste0("C:/Users/yjin85/OneDrive - Emory University/Research/RF_CTMLE/Results/20220419_HIV_Visuals/",antibody[anti],"/AA/")
 
 dir <- path_read
 dir_fun <- paste0(path_read, "R_func/")
 dir_save <- paste0(path_save, antibody[anti],"/AA/")
-# dir <- "/home/yjin85/TMLE_RF/Codes/20210511_HIV_Visuals/"
-# dir_fun <- "/home/yjin85/TMLE_RF/Codes/20210511_HIV_Visuals/R_func/"
-# dir_save <- paste0("/home/yjin85/TMLE_RF/Results/20210511_HIV_Visuals/",antibody[anti],"/AA/")
+
+
 
 # # --------------
 # # Data cleaning
@@ -178,6 +181,31 @@ dir_save <- paste0(path_save, antibody[anti],"/AA/")
 # dat_PGT145 <- dat_PGT145[complete.cases(dat_PGT145),]
 # save(dat_PGT145, file = paste0(dir,"data/dat_PGT145.rda"))
 
+# # remove continuous variables
+# anti=1
+# load(paste0(dir,"data/dat_", antibody[anti], ".rda"))
+# dat_vrc01 <- dat_vrc01[,-c(3:18)]
+# save(dat_vrc01, file = paste0(dir,"data/dat_vrc01.rda"))
+# 
+# anti=2
+# load(paste0(dir,"data/dat_", antibody[anti], ".rda"))
+# dat_vrc26 <- dat_vrc26[,-c(3:18)]
+# save(dat_vrc26, file = paste0(dir,"data/dat_vrc26.rda"))
+# 
+# anti=3
+# load(paste0(dir,"data/dat_", antibody[anti], ".rda"))
+# dat_1074 <- dat_1074[,-c(3:18)]
+# save(dat_1074, file = paste0(dir,"data/dat_1074.rda"))
+# 
+# anti=4
+# load(paste0(dir,"data/dat_", antibody[anti], ".rda"))
+# dat_PGT121 <- dat_PGT121[,-c(3:18)]
+# save(dat_PGT121, file = paste0(dir,"data/dat_PGT121.rda"))
+# 
+# anti=5
+# load(paste0(dir,"data/dat_", antibody[anti], ".rda"))
+# dat_PGT145 <- dat_PGT145[,-c(3:18)]
+# save(dat_PGT145, file = paste0(dir,"data/dat_PGT145.rda"))
 
 
 
@@ -221,7 +249,7 @@ one_AA = function(AA_ind){
 
 
 if (splt==1){
-  sim <- 19:20
+  sim <- 3:20
 }
 
 

@@ -19,8 +19,8 @@ ls()
 
 
 # Antibodies
-antibody <- c("vrc26", "1074", "PGT121", "PGT145")
-s_max <- c(229, 303, 313, 294)
+antibody <- c("vrc01", "vrc26", "1074", "PGT121", "PGT145")
+s_max <- c(328, 229, 303, 313, 294)
 
 
 # Summary Table prep
@@ -29,8 +29,8 @@ dir = paste0(path_save, antibody[anti],"/AA/")
 dir.save = paste0(path_save, antibody[anti],"/")
 
 
-# i_pos <- 19:20
-i_pos <- 19:(18+s_max[anti])
+# i_pos <- 3:20
+i_pos <- 3:(2+s_max[anti])
 
 # sig_level
 level <- 0.95
@@ -78,7 +78,7 @@ for (i in i_pos){
   val <- paste0(round(out[,1],5)," (",round(out[,2],5), ", ", round(out[,3],5),")")
   ord <- order(est,decreasing = T)
   
-  est_list[[i-18]] <- c(rbind(names(est)[ord],val[ord]))
+  est_list[[i-2]] <- c(rbind(names(est)[ord],val[ord]))
 }
 
 
