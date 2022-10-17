@@ -1,8 +1,8 @@
-# Wald test
-# C  : linear combination of testing
-# fit: model fitting
-# sum: summary(fit)
-# df : degree of freedom (depends on C)
+#' Wald test
+#' C  : linear combination of testing
+#' fit: model fitting
+#' sum: summary(fit)
+#' df : degree of freedom (depends on C)
 wald = function(est,cov,C){
   df = nrow(C)
   Ccov = C%*%cov%*%t(C)
