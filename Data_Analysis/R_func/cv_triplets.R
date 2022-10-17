@@ -30,13 +30,14 @@ cv_triplets <- function(fold=4,datt=dat,ind, mnds=10, ntrees=1000,selections,tol
   samples.size <- nrow(datt)
   
   # dat list
-  datlist_train <- list()
-  datlist_validate <- list()
+  datlist_train <- vector("list",length = fold)
+  datlist_validate <- vector("list",length = fold)
   
   num = floor(samples.size/fold)
+  ran_sam <- sample(1:nrow(datt), nrow(datt))
   for(i in seq(fold)){
-    datlist_train[[i]] <- datt[-((i*num-num+1):(i*num)),]
-    datlist_validate[[i]] <- datt[(i*num-num+1):(i*num),]
+    datlist_train[[i]] <- datt[-ran_sam[(i*num-num+1):(i*num)],]
+    datlist_validate[[i]] <- datt[ran_sam[(i*num-num+1):(i*num)],]
   }
   
   # # identify the column for AA_k
@@ -50,7 +51,7 @@ cv_triplets <- function(fold=4,datt=dat,ind, mnds=10, ntrees=1000,selections,tol
   
   # for each fold, get empirical risk for validation group
   # train = datlist_train[[1]]; validate = datlist_validate[[1]]
-  empirical_risk_apply <- function(train,validate){
+  empirical_risk_apply <- function(train,validate,...){
     
     # fit RF for OR 
     fit1.RF <- randomForest::randomForest(factor(Y)~.,data = train, maxnodes=mnds, ntree=ntrees) # 
@@ -60,13 +61,13 @@ cv_triplets <- function(fold=4,datt=dat,ind, mnds=10, ntrees=1000,selections,tol
     imp_name1 = names(sort(imp1[,1],decreasing = T))
     
     # train
-    newdat=list()
-    for(i in seq(levels)){
-      temp = train
-      temp[,ind]=rep(nams[i],nrow(train))#levels(temp[,ind])=as.factor(seq(levels))
-      newdat[[i]] = temp
+    newdat=vector("list",length = levels)
+    for(l in seq(levels)){
+      temp <- train
+      temp[,ind] <- rep(nams[l], nrow(train))#levels(temp[,ind])=as.factor(seq(levels))
+      newdat[[l]] <- temp
     }
-    rm(temp,i)
+    rm(temp,l)
 
     Qn10 = list()
     # generate Qn list

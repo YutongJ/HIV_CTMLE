@@ -1,7 +1,9 @@
-
 #' Manhattan Plot
 #'
 #' Fluctuating original Qn to get Qnstar.
+#'
+#' @description This function performs a fluctuation of an initial estimate of
+#'  outcome regression functions via \code{\link[stats]{glm}} (i.e., a logistic submodel).
 #'
 #' @param Y   The outcome vector
 #' @param A   The trail
