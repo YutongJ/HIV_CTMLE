@@ -1,7 +1,7 @@
 # Identifying HIV sequences that escape antibody neutralization using random forests and collaborative targeted learning
 
 ## Prerequisite:
-To fully replicate the research result,some R packages are required for executing the main code file:   
+To fully replicate the research result, some R packages are required for executing the main code file:   
 `dummies`
 `MASS`
 `plyr`
@@ -17,7 +17,7 @@ The original dataset is from CATNAP database. We illustrate our method with five
 
 ## Code Details: 
 
-**Main Function:** 
+**Main Functions:** 
 
 *AAk_step2*\
 CTMLE results from full dataset. Full data are used for both model fitting and predictions.
@@ -31,7 +31,7 @@ The estimation for one particular site of interest. This process includes two ty
 
 
 
-**Nuisance Function:** 
+**Nuisance Functions:** 
 
 *fluctuate_Q*\
 This function is used in TMLE to fluctuate the initial predictions from outcome regression.
